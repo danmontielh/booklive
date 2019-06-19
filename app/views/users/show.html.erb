@@ -1,1 +1,9 @@
 <%= @user.name %>
+
+<%# <%= button_to "Invite", friendships_path(invited_friend_id: @user.id), {method: :post, remote: true } %> %>
+
+<%= form_with(model: @friendship, url: friendships_path ) do |f| %>
+   <%= f.hidden_field :invited_friend_id, value: params[:id] %>
+  <%= f.submit %>
+<% end %>
+dont forget make a push
