@@ -15,4 +15,9 @@
  */
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+ a, a:hover {
+    color: #fff;
+    text-decoration: none
+}
  

@@ -10,8 +10,89 @@
   </head>
 
   <body>
-     <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top" style="background: #4267b2; color:#fff">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#" style="color:#fff"><b>Livebook</b></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          
+          <div class="nav navbar-nav navbar-right" style="margin-top:0.8%">
+            <% if user_signed_in? %>
+              <%= link_to "Sign out", destroy_user_session_path, :method => :delete%>
+            <% else %>
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {class: "form-inline"} ) do |f| %>
+    
+                  <%= f.label :email %>
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+                
+
+                
+                  <%= f.label :password %>
+                  <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+                
+
+                <% if devise_mapping.rememberable? %>
+                  
+                    <%= f.check_box :remember_me %>
+                    <%= f.label :remember_me %>
+                  
+                <% end %>
+
+                
+                  <%= f.submit "Log in", class: "btn btn-success" %>
+                
+              <% end %>
+            <% end %>
+          </div>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+      <div style="margin-top:50px"> 
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </div>
+      <% if user_signed_in? == false %>
+        <div class="pull-right">
+          <h3>Register</h3><hr>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+
+            <div class="field">
+              <%= f.label :email %><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+            </div>
+
+            <div class="field">
+              <%= f.label :password %>
+              <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %><br />
+              <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+            </div>
+
+            <div class="field">
+              <%= f.label :password_confirmation %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+            </div><br>
+
+            
+              <%= f.submit "Sign up", class: "btn btn-success" %>
+            
+          <% end %>
+
+          <%= render "devise/shared/links" %>
+        </div>
+      <% end %>
     <%= yield %>
+    </div>
   </body>
 </html>
