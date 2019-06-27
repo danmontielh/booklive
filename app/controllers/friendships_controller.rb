@@ -1,9 +1,15 @@
 class FriendshipsController < ApplicationController
+
+
+
+
     def create
         @friendship = current_user.friendships.build(friendship_params)
         if @friendship.save
             flash[:success] = "Invitation has sending !"
-            render json: @friendship
+            respond_to do |format|
+                format.js { render 'users/create' }
+            end
         end
     end
     

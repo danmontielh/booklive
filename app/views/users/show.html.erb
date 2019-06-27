@@ -1,8 +1,12 @@
 <%= @user.name %>
 
-<%# <%= button_to "Invite", friendships_path(invited_friend_id: @user.id), {method: :post, remote: true } %> %>
-
-<%= form_with(model: @friendship, url: friendships_path ) do |f| %>
-   <%= f.hidden_field :invited_friend_id, value: params[:id] %>
-  <%= f.submit %>
+<% if current_user != @user %> 
+  <%= form_with(model: @friendship, url: friendships_path ) do |f| %>
+    <%= f.hidden_field :invited_friend_id, value: params[:id] %>
+    <%= f.submit data: { "disable-with": "Saving..." } %>
+  <% end %>
 <% end %>
+
+<div class="add">
+
+</div>
