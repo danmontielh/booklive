@@ -1,12 +1,15 @@
 <%= @user.id %>
+<% if current_user != @user %> 
+  <div class="add">
+    <% if current_user.has_invited?(@user) || current_user.friends?(@user) %>
+        <%= render 'friendships/unfriendship' %> 
+    <% else %>
+        <%= render 'friendships/friendship' %> 
+    <% end %>
+  </div>
+<% end %>
 
 
-
-<div class="add">
-  <% if current_user != @user %> 
-  <%= form_with(model: @friendship, url: friendships_path ) do |f| %>
-    <%= f.hidden_field :invited_friend_id, value: params[:id] %>
-    <%= f.submit "Send Invitation", data: { "disable-with": "Saving..." } %>
-  <% end %>
-  <% end %>
-</div>
+<% if current_user.friends?(@user) %>
+  <P>Son amigos</P>
+<% end %>

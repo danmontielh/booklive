@@ -9,6 +9,25 @@ class User < ApplicationRecord
   has_many :invites_friend, class_name: "Friendship", foreign_key: "invited_friend_id"
   has_many :friends, through: :invites_friend, source: :friend_invite
 
+
+
+  def get_friendship_id(user)
+    friendships.where(invited_friend_id: user.id).ids
+  end
+
+  def has_invited?(user)
+    friendships.where(invited_friend_id: user.id ).where(accepted:false).count == 1
+  end
+
+  def friends?(user)
+    friendships.where(invited_friend_id: user.id ).where(accepted:true).count == 1
+  end
+
+  def invitations
+    invites_friend.where(accepted: false)
+  end
+
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider

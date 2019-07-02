@@ -15,9 +15,9 @@ class FriendshipsController < ApplicationController
     end
 
     def destroy
+        @user = User.find(@friendship.invited_friend_id)
         if @friendship.destroy
             flash[:success] = "Invitation has sending !"
-            @user = User.find(@friendship.invited_friend_id)
             respond_to do |format|
                 format.js 
             end
