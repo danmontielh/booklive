@@ -11,21 +11,52 @@ class User < ApplicationRecord
 
 
 
+  def invitations
+    invites_friend.where(accepted: false)
+  end
+  
+  
   def get_friendship_id(user)
-    friendships.where(invited_friend_id: user.id).ids
+    if self.friendships.where(invited_friend_id: user).count == 1
+      friendships.where(invited_friend_id: user).ids
+    elsif self.invites_friend.where(friend_invite_id: user).count == 1
+      invites_friend.where(friend_invite_id: user).ids
+    end
   end
 
   def has_invited?(user)
     friendships.where(invited_friend_id: user.id ).where(accepted:false).count == 1
   end
 
-  def friends?(user)
-    friendships.where(invited_friend_id: user.id ).where(accepted:true).count == 1
+  
+
+  def invitation?(user)
+    if self.invites_friend.where(friend_invite_id: user).where(accepted: false).count == 1
+      return true
+    elsif self.friendships.where(invited_friend_id: user).where(accepted: false).count == 1
+      return true
+    else 
+      return false
+    end
   end
 
-  def invitations
-    invites_friend.where(accepted: false)
+  def friendship?(user)
+    if self.invites_friend.where(friend_invite_id: user).where(accepted: true).count == 1
+      return true
+    elsif self.friendships.where(invited_friend_id: user).where(accepted: true).count == 1
+      return true
+    else 
+      return false
+    end
   end
+
+  def number_friends
+    total_friends = 0
+    number = self.invites_friend.where(accepted: true).count + self.friendships.where(accepted: true).count
+    total_friends+=number 
+  end
+  
+
 
 
   def self.from_omniauth(auth)
