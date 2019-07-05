@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :feed
   resources :friendships
   resources :comments
+  resources :likes
   root 'home#index'
 
   

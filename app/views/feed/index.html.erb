@@ -1,15 +1,24 @@
 <% @feed.each do |feed| %>
      <h3><%= feed.title %></h3>
      <p><%= feed.content %></p>
+     <% if feed.likes.count > 0 %>
+          <p style="color: green">Already like</p>
+     <% else %>
+          <%= form_with(model: @like, url: likes_path, local: true ) do |f| %>
+               <%= f.hidden_field :post_id, value: feed.id %>
+               <%= f.submit "Like", data: { "disable-with": "Saving..." }, class: "btn" %>
+          <% end %>
+     <% end %>
      <hr>
      <h5>Comments</h5>
-     <%= form_with(model: @comment, url: comments_path ) do |f| %>
-          
-          <%= f.text_area :body %><br>
-          <%= f.submit "Comment", data: { "disable-with": "Saving..." } %>
-     <% end %>
      <% feed.comments.each do |comment| %>
-     <p><%= comment.body %></p>
+          <p><%= comment.body %></p>
      <% end %>
+     <%= form_with(model: @comment, url: comments_path, local: true ) do |f| %>
+          <%= f.hidden_field :post_id, value: feed.id %>
+          <%= f.text_area :body %><br>
+          <%= f.submit "Comment", data: { "disable-with": "Saving..." }, class: "btn" %>
+     <% end %>
+     
      <hr>
 <% end %>

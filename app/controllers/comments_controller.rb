@@ -12,10 +12,12 @@ class CommentsController < ApplicationController
     end
 
     def create
-        @post = Post.find(5)
+        @post = Post.find(params[:comment][:post_id])
         @comment = @post.comments.build(comment_params)
         @comment.user = current_user
-        @comment.save
+        if @comment.save
+            redirect_to  feed_index_path
+        end
     end
 
     def destroy

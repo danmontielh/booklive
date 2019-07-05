@@ -3,6 +3,9 @@ class FeedController < ApplicationController
     def index
         @feed = Post.order(created_at: :desc)
         @comment = Comment.new
+        @like = Like.new
     end
+
+    
     
 end
