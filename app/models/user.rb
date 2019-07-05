@@ -11,8 +11,8 @@ class User < ApplicationRecord
 
 
 
-  def invitations
-    invites_friend.where(accepted: false)
+  def invitations?
+    invites_friend.not_accepted
   end
   
   

@@ -26,6 +26,27 @@
           
           <div class="nav navbar-nav navbar-right" style="margin-top:0.8%">
             <% if user_signed_in? %>
+      <div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    
+  
+  <% if current_user.invitations?.count > 0 %>
+      <% current_user.invitations?.each do |invitation| %>
+      <li> <%= link_to invitation.friend_invite.email, user_path(invitation.friend_invite.id) %> </li>
+      <% end %>
+  <% else %>
+      <p>You don't have invitations</p>
+  <% end %>
+  
+    
+  </ul>
+</div>
+
+
               <%= link_to "Sign out", destroy_user_session_path, :method => :delete%>
             <% else %>
               <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {class: "form-inline"} ) do |f| %>
