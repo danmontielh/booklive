@@ -1,17 +1,23 @@
 
 <div class="row">
-     <div class="col-sm-3"></div>
+     <div class="col-sm-3"></div> 
      <div class="col-sm-6">
           <% @feed.each do |feed| %>
                <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.email %></h4>
                <h5 class="title"><%= feed.title %></h5>
                <p class="feed_content"><%= feed.content %></p>
                <% if feed.likes.count > 0 %>
-                    <p style="color: green">Already like</p>
+                    <p style="color: green">
+                         <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">
+                              Already like
+                         </span>
+                    </p>
                <% else %>
                     <%= form_with(model: @like, url: likes_path, local: true ) do |f| %>
                          <%= f.hidden_field :post_id, value: feed.id %>
-                         <%= f.submit "Like", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
+                         <%= button_tag(type: "submit", class: "btn btn-primary") do %>
+                              <span><i class="glyphicon glyphicon-thumbs-up"></i> Like</span>
+                         <% end %>
                     <% end %>
                <% end %>
                <hr>
@@ -30,7 +36,7 @@
                <% end %>
                <%= form_with(model: @comment, url: comments_path, local: true ) do |f| %>
                     <%= f.hidden_field :post_id, value: feed.id %>
-                    <%= f.text_area :body, class: "form-group col-sm-12", rows: "1" %><br>
+                    <%= f.text_area :body, class: "form-group col-sm-12 btn-comment", rows: "1" %><br>
                     <%= f.submit "Comment", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
                <% end %>
                
