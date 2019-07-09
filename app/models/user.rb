@@ -12,6 +12,56 @@ class User < ApplicationRecord
   has_many :comments
   has_many :likes
   
+
+
+  def invitations?
+    invites_friend.not_accepted
+  end
+  
+  
+  def get_friendship_id(user)
+    if self.friendships.has_invited(user).count == 1
+      friendships.has_invited(user).ids
+    elsif self.invites_friend.has_invitation(user).count == 1
+      invites_friend.has_invitation(user).ids
+    end
+  end
+
+  def has_invited?(user)
+    friendships.has_invited(user).count == 1
+  end
+
+  
+
+  def invitation?(user)
+    if self.invites_friend.has_invitation(user).not_accepted.count == 1
+      return true
+    elsif self.friendships.has_invited(user).not_accepted.count == 1
+      return true
+    else 
+      return false
+    end
+  end
+
+  def friendship?(user)
+    if self.invites_friend.has_invitation(user).accepted.count == 1
+      return true
+    elsif self.friendships.has_invited(user).accepted.count == 1
+      return true
+    else 
+      return false
+    end
+  end
+
+  def number_friends
+    total_friends = 0
+    number = self.invites_friend.accepted.count + self.friendships.accepted.count
+    total_friends+=number 
+  end
+  
+
+
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider

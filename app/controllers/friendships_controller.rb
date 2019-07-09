@@ -7,14 +7,32 @@ class FriendshipsController < ApplicationController
         @friendship = current_user.friendships.build(friendship_params)
         if @friendship.save
             flash[:success] = "Invitation has sending !"
+            @user = User.find(@friendship.invited_friend_id)
             respond_to do |format|
-                format.js { render 'users/create', locals: { user: User.find(@friendship.invited_friend_id) }}
+                format.js 
             end
         end
     end
 
+    def update
+
+    @friendship.update_attributes(accepted:true)
+    @user = User.find(@friendship.friend_invite_id)
+    respond_to do |format|
+        format.js 
+    end
+    end
+
     def destroy
-        @friendship.destroy
+        @user = User.find(@friendship.invited_friend_id)
+        if @friendship.destroy
+            flash[:success] = "Invitation has sending !"
+            respond_to do |format|
+                format.js 
+            end
+        else
+
+        end
     end
     
     

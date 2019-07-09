@@ -1,0 +1,4 @@
+<%= form_with(model: @friendship, url: friendships_path ) do |f| %>
+    <%= f.hidden_field :invited_friend_id, value: @user.id %>
+    <%= f.submit "Request Friendship", data: { "disable-with": "Saving..." } %>
+<% end %>

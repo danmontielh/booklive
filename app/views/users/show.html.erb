@@ -41,3 +41,29 @@
      </div>
      <div class="col-sm-3"></div>
 </div>
+<p><%= @user.id %></p>
+<p>Friends: <%= @num_friends %></p>
+<% if current_user != @user %> 
+<div class="add">
+<% if current_user.friendship?(@user) %>
+  <%= render 'friendships/unfriendship' %> 
+  <% elsif current_user.invitation?(@user) %>
+    <% if current_user.has_invited?(@user) %>
+        <%= render 'friendships/unfriendship' %> 
+    <% else %>
+        <%= render 'friendships/update_friendship' %> 
+    <% end %>
+  <% else %>
+  <%= render 'friendships/friendship' %>
+<% end %>
+</div>
+<% end %>
+
+
+
+
+ 
+
+
+
+

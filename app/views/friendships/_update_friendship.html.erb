@@ -1,0 +1,7 @@
+  <%= form_with(model: @friendship, url: friendship_path(current_user.get_friendship_id(@user)), method: :delete ) do |f| %>
+    <%= f.submit "Cancel Friendship", data: { "disable-with": "Saving..." } %>
+  <% end %>
+
+   <%= form_with(model: @friendship, url: friendship_path(current_user.get_friendship_id(@user)), method: :put ) do |f| %>
+    <%= f.submit "Accept Friendship", data: { "disable-with": "Saving..." } %>
+  <% end %>

@@ -4,6 +4,8 @@ class FeedController < ApplicationController
         @feed = Post.order(created_at: :desc)
         @comment = Comment.new
         @like = Like.new
+        @user = User.find(current_user.id)
+        
     end
 
     
