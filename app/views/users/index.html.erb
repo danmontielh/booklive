@@ -1,0 +1,21 @@
+
+<% @users.each do |user| %>
+    
+    <% if user != current_user %>
+        <li> <%= user.email %> </li>
+        <div class="add">
+<% if current_user.friendship?(user) %>
+  Unfriendship
+  <% elsif current_user.invitation?(user) %>
+    <% if current_user.has_invited?(user) %>
+      unfriendship
+    <% else %>
+        Update
+    <% end %>
+  <% else %>
+  Friendship
+<% end %>
+</div>
+    <% end %>
+    
+<% end %>
