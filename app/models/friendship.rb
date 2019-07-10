@@ -7,5 +7,6 @@ class Friendship < ApplicationRecord
     scope :has_invited, ->(user) {  where(invited_friend_id: user) }
     scope :has_invitation, ->(user) { where(friend_invite_id: user) }
 
+
 end
 

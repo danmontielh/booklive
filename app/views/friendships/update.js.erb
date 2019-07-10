@@ -1,1 +1,1 @@
-$('.add').html("<%= escape_javascript(render 'unfriendship') %>");
+$('.add-<%= @user.id %>').html("<%= escape_javascript(render 'friendships/unfriendship') %>");

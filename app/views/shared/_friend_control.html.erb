@@ -1,9 +1,6 @@
-<% @users.each do |user| %>
-  <% if user != current_user %>
-    <li> <%= user.email %> </li>
-    <div class="add-<%= user.id %>">
+<div class="add-<%= user.id %>">
   <% if current_user.friendship?(user) %>
-     <%= link_to "Cancel Friendship", friendship_path(current_user.get_friendship_id(user)), remote: true, method: :delete %>
+    <%= link_to "Cancel Friendship", friendship_path(current_user.get_friendship_id(user)), remote: true, method: :delete %>
   <% elsif current_user.invitation?(user) %>
     <% if current_user.has_invited?(user) %>
       <%= link_to "Cancel Friendship", friendship_path(current_user.get_friendship_id(user)), remote: true, method: :delete %>
@@ -14,6 +11,3 @@
     <%= link_to "Request Friendship", friendships_path(friendship:  {invited_friend_id: user.id } ), remote: true, method: :post %>
   <% end %>
 </div>
-
-  <% end %>
-<% end %>

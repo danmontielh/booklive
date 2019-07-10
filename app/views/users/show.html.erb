@@ -1,69 +1,59 @@
-
 <div class="row">
-     <div class="col-sm-3">
-        <h4><%= user_gravatar(@user, 75) %> <%= @user.email %></h4>
-     </div>
-     <div class="col-sm-6">
-          <% @feed.each do |feed| %>
-               <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.email %></h4>
-               <h5 class="title"><%= feed.title %></h5>
-               <p class="feed_content"><%= feed.content %></p>
-               <% if feed.likes.count > 0 %>
-                    <p style="color: green">Already like</p>
-               <% else %>
-                    <%= form_with(model: @like, url: likes_path, local: true ) do |f| %>
-                         <%= f.hidden_field :post_id, value: feed.id %>
-                         <%= f.submit "Like", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
-                    <% end %>
-               <% end %>
-               <hr>
-               <h5>Comments</h5>
-               <% feed.comments.each do |comment| %>
-                    <div class="media">
-                         <div class="media-left media-middle">
-                              <a href="#">
-                                   <%= user_gravatar(comment.user, 35) %>
-                              </a>
-                         </div>
-                         <div class="media-body">
-                              <p class="feed_comment"><span class="comment_name"><%= comment.user.email %></span> <%= comment.body %></p>
-                         </div>
-                    </div>
-               <% end %>
-               <%= form_with(model: @comment, url: comments_path, local: true ) do |f| %>
-                    <%= f.hidden_field :post_id, value: feed.id %>
-                    <%= f.text_area :body, class: "form-group col-sm-12", rows: "1" %><br>
-                    <%= f.submit "Comment", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
-               <% end %>
-               
-               <hr>
-          <% end %>
-     </div>
-     <div class="col-sm-3"></div>
+  <div class="col-sm-3">
+    <h4><%= user_gravatar(@user, 75) %> <%= @user.email %></h4>
+  </div>
+  <div class="col-sm-6">
+    <% @feed.each do |feed| %>
+      <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.email %></h4>
+      <h5 class="title"><%= feed.title %></h5>
+      <p class="feed_content"><%= feed.content %></p>
+      <% if feed.likes.count > 0 %>
+        <p style="color: green">Already like</p>
+      <% else %>
+        <%= form_with(model: @like, url: likes_path, local: true ) do |f| %>
+          <%= f.hidden_field :post_id, value: feed.id %>
+          <%= f.submit "Like", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
+        <% end %>
+      <% end %>
+      <hr>
+      <h5>Comments</h5>
+      <% feed.comments.each do |comment| %>
+        <div class="media">
+          <div class="media-left media-middle">
+            <a href="#">
+              <%= user_gravatar(comment.user, 35) %>
+            </a>
+          </div>
+          <div class="media-body">
+            <p class="feed_comment"><span class="comment_name"><%= comment.user.email %></span> <%= comment.body %></p>
+          </div>
+        </div>
+      <% end %>
+      <%= form_with(model: @comment, url: comments_path, local: true ) do |f| %>
+        <%= f.hidden_field :post_id, value: feed.id %>
+        <%= f.text_area :body, class: "form-group col-sm-12", rows: "1" %><br>
+        <%= f.submit "Comment", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
+      <% end %>
+      <hr>
+    <% end %>
+  </div>
+  <div class="col-sm-3"></div>
 </div>
 <p><%= @user.id %></p>
 <p>Friends: <%= @num_friends %></p>
-<% if current_user != @user %> 
-<div class="add">
-<% if current_user.friendship?(@user) %>
-  <%= render 'friendships/unfriendship' %> 
+<% if current_user != @user %>
+<div class="add-<%= user.id %>">
+  <% if current_user.friendship?(@user) %>
+     <%= link_to "Cancel Friendship", friendship_path(current_user.get_friendship_id(@user)), remote: true, method: :delete %>
   <% elsif current_user.invitation?(@user) %>
     <% if current_user.has_invited?(@user) %>
-        <%= render 'friendships/unfriendship' %> 
+      <%= link_to "Cancel Friendship", friendship_path(current_user.get_friendship_id(@user)), remote: true, method: :delete %>
     <% else %>
-        <%= render 'friendships/update_friendship' %> 
+    <%= link_to "Accept Invitation", friendship_path(current_user.get_friendship_id(@user)), remote: true, method: :patch %>
     <% end %>
   <% else %>
-  <%= render 'friendships/friendship' %>
-<% end %>
+    <%= link_to "Request Friendship", friendships_path(friendship:  {invited_friend_id: @user.id } ), remote: true, method: :post %>
+  <% end %>
 </div>
+
 <% end %>
-
-
-
-
- 
-
-
-
-
