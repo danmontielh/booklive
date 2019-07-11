@@ -26,6 +26,11 @@
             <%= form.text_area :content, class: "form-control" %>
           </div><br>
 
+          <div>
+            <%= form.label :content %>
+            <%= form.file_field :photo, class: "form-control" %>
+          </div><br>
+
           <div class="actions">
             <%= form.submit "Post", class: "btn btn-primary" %>
             <%= link_to 'Back', "/feed", class: "btn btn-warning" %>
