@@ -71,5 +71,13 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0,20]
     end
   end
-  
+
+  def after_sign_in_path_for(users)
+    welcome_mail
+  end
+
+  def welcome_mail
+    UserMailer::welcome_email(self).deliver
+  end
+
 end

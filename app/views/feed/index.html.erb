@@ -6,6 +6,10 @@
                <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.email %></h4>
                <h5 class="title"><%= feed.title %></h5>
                <p class="feed_content"><%= feed.content %></p>
+               <% if feed.photo.attached? %>
+                    <img src="<%=(url_for(feed.photo))%>" class="img-responsive" >
+               <% end %>
+               <hr>
                <% if feed.likes.count > 0 %>
                     <p style="color: green">
                          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">
@@ -20,7 +24,7 @@
                          <% end %>
                     <% end %>
                <% end %>
-               <hr>
+               
                <h5>Comments</h5>
                <% feed.comments.each do |comment| %>
                     <div class="media">

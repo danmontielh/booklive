@@ -8,6 +8,9 @@
                <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.email %></h4>
                <h5 class="title"><%= feed.title %></h5>
                <p class="feed_content"><%= feed.content %></p>
+               <% if feed.photo.attached? %>
+                    <img src="<%= url_for(feed.photo) %>"  class="img-responsive">
+               <% end %>
                <% if feed.likes.count > 0 %>
                     <p style="color: green">Already like</p>
                <% else %>
