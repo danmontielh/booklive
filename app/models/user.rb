@@ -65,7 +65,11 @@ class User < ApplicationRecord
 
   def get_posts
     friends = self.friends.join(", ")
-    Post.where("user_id IN (#{friends}) OR user_id = #{self.id}").order(created_at: :desc)
+    if self.friends.count > 0
+      Post.where("user_id IN (#{friends}) OR user_id = #{self.id}").order(created_at: :desc)
+    else
+      Post.where("user_id = #{self.id}").order(created_at: :desc)
+    end
   end
 
 
