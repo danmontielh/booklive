@@ -4,7 +4,7 @@ class LikesController < ApplicationController
         @like = current_user.likes.build(like_params)
        # @like.user_id = current_user
         if @like.save
-            @post = User.find(@like.post_id)
+            @post = Post.find(@like.post_id)
             respond_to do |format|
                 format.js 
             end

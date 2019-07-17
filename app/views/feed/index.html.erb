@@ -12,10 +12,10 @@
                <hr>
 
                <div class="likes-<%= feed.id %>">
-                     <% if feed.likes.count > 0 %>
+                     <% if feed.like?(current_user) %>
                     <p style="color: green">
                          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">
-                              Already like
+                              Already like | <%= feed.total_likes %>
                          </span>
                     </p>
                <% else %>
