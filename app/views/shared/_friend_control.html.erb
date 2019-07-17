@@ -1,0 +1,13 @@
+<div class="add-<%= user.id %>">
+  <% if current_user.friendship?(user) %>
+    <%= link_to "Cancel Friendship", friendship_path(current_user.get_friendship_id(user)), remote: true, method: :delete %>
+  <% elsif current_user.invitation?(user) %>
+    <% if current_user.has_invited?(user) %>
+      <%= link_to "Cancel Friendship", friendship_path(current_user.get_friendship_id(user)), remote: true, method: :delete %>
+    <% else %>
+    <%= link_to "Accept Invitation", friendship_path(current_user.get_friendship_id(user)), remote: true, method: :patch %>
+    <% end %>
+  <% else %>
+    <%= link_to "Request Friendship", friendships_path(friendship:  {invited_friend_id: user.id } ), remote: true, method: :post %>
+  <% end %>
+</div>

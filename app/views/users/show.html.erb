@@ -1,4 +1,3 @@
-
 <div class="row">
      <div class="col-sm-3">
         <h4><%= user_gravatar(@user, 75) %> <%= @user.email %></h4>
@@ -46,27 +45,21 @@
 </div>
 <p><%= @user.id %></p>
 <p>Friends: <%= @num_friends %></p>
-<% if current_user != @user %> 
-<div class="add">
-<% if current_user.friendship?(@user) %>
-  <%= render 'friendships/unfriendship' %> 
+<% if current_user != @user %>
+<div class="add-<%= user.id %>">
+  <% if current_user.friendship?(@user) %>
+     <%= link_to "Cancel Friendship", friendship_path(current_user.get_friendship_id(@user)), remote: true, method: :delete %>
   <% elsif current_user.invitation?(@user) %>
     <% if current_user.has_invited?(@user) %>
-        <%= render 'friendships/unfriendship' %> 
+      <%= link_to "Cancel Friendship", friendship_path(current_user.get_friendship_id(@user)), remote: true, method: :delete %>
     <% else %>
-        <%= render 'friendships/update_friendship' %> 
+    <%= link_to "Accept Invitation", friendship_path(current_user.get_friendship_id(@user)), remote: true, method: :patch %>
     <% end %>
   <% else %>
-  <%= render 'friendships/friendship' %>
-<% end %>
+    <%= link_to "Request Friendship", friendships_path(friendship:  {invited_friend_id: @user.id } ), remote: true, method: :post %>
+  <% end %>
 </div>
+
+
+
 <% end %>
-
-
-
-
- 
-
-
-
-
