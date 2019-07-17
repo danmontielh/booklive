@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :posts
   has_many :comments
   has_many :likes
+
+  after_create :welcome_mail
   
 
 
@@ -72,9 +74,6 @@ class User < ApplicationRecord
     end
   end
 
-  def after_sign_in_path_for(users)
-    welcome_mail
-  end
 
   def welcome_mail
     UserMailer::welcome_email(self).deliver
