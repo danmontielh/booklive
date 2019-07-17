@@ -3,6 +3,13 @@
     <h4><%= user_gravatar(@user, 75) %> <%= @user.email %></h4>
   </div>
   <div class="col-sm-6">
+
+  <h1>Posts</h1>
+
+
+<% @user.get_post.each do |post| %>
+  <h5>  <%= post%> </h5>
+<% end %>
     <% @feed.each do |feed| %>
       <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.email %></h4>
       <h5 class="title"><%= feed.title %></h5>
@@ -55,5 +62,7 @@
     <%= link_to "Request Friendship", friendships_path(friendship:  {invited_friend_id: @user.id } ), remote: true, method: :post %>
   <% end %>
 </div>
+
+
 
 <% end %>

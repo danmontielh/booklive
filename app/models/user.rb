@@ -53,6 +53,20 @@ class User < ApplicationRecord
     end
   end
 
+  def friends
+    ids = []
+    user_has_invitation = self.invites_friend.accepted.each {| friend |   ids.push(friend.friend_invite_id) } 
+    user_has_invitated = self.friendships.accepted.each {| friend |   ids.push(friend.invited_friend_id) } 
+      return ids
+  end
+
+
+  def get_posts
+    friends = self.friends.join(", ")
+    Post.where("user_id IN (#{friends}) OR user_id = #{self.id}").order(created_at: :desc)
+  end
+
+
   def number_friends
     total_friends = 0
     number = self.invites_friend.accepted.count + self.friendships.accepted.count
