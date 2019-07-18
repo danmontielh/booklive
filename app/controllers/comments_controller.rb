@@ -16,7 +16,9 @@ class CommentsController < ApplicationController
         @comment = @post.comments.build(comment_params)
         @comment.user = current_user
         if @comment.save
-            redirect_to  feed_index_path
+            respond_to do |format|
+                format.js 
+            end
         end
     end
 

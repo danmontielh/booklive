@@ -1,0 +1,2 @@
+$('.form-<%=@comment.post_id%>').val("");
+$('.comments-<%=@comment.post_id%>').append("<%= escape_javascript(render 'comments/comment') %>");

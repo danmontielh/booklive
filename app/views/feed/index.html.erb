@@ -31,6 +31,7 @@
                
                <h5>Comments</h5>
                <% feed.comments.each do |comment| %>
+               <div class="comments-<%= comment.post_id %>">
                     <div class="media">
                          <div class="media-left media-middle">
                               <a href="#">
@@ -42,10 +43,11 @@
                          </div>
                     </div>
                <% end %>
-               <%= form_with(model: @comment, url: comments_path, local: true ) do |f| %>
+               </div>
+               <%= form_with(model: @comment, url: comments_path, remote: true ) do |f| %>
                     <%= f.hidden_field :post_id, value: feed.id %>
-                    <%= f.text_area :body, class: "form-group col-sm-12 btn-comment", rows: "1" %><br>
-                    <%= f.submit "Comment", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
+                    <%= f.text_area :body, class: "form-group col-sm-12 btn-comment form-#{feed.id}", rows: "1" %><br>
+                    <%= f.submit "Comment", :onclick => "", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
                <% end %>
                
                <hr>
