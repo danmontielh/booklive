@@ -24,7 +24,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           
-          <ul class="nav navbar-nav navbar-right" style="margin-top:0.8%">
+          <ul class="nav navbar-nav navbar-right" style="margin-top:0.8%; color:#fff">
             <% if user_signed_in? %>
               <li><%= link_to raw("<span><i class='glyphicon glyphicon-edit'></i> New Post</span>"), new_post_path %></li>
               <li><%= link_to "Friends", users_path %></li>

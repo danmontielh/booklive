@@ -1,1 +1,1 @@
-<%= link_to "Request Friendship", friendships_path(friendship:  {invited_friend_id: @user.id } ), remote: true, method: :post %>
+<%= link_to "Request Friendship", friendships_path(friendship:  {invited_friend_id: @user.id } ), remote: true, method: :post, class: "btn btn-primary" %>
