@@ -4,9 +4,16 @@ class LikesController < ApplicationController
         @like = current_user.likes.build(like_params)
        # @like.user_id = current_user
         if @like.save
-            redirect_to  feed_index_path
+            @post = Post.find(@like.post_id)
+            respond_to do |format|
+                format.js 
+            end
         end
     end
+
+
+
+
 
     private 
 

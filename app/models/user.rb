@@ -66,9 +66,9 @@ class User < ApplicationRecord
   def get_posts
     friends = self.friends.join(", ")
     if self.friends.count > 0
-      Post.where("user_id IN (#{friends}) OR user_id = #{self.id}").order(created_at: :desc)
+      Post.timeline_friends(friends, self)
     else
-      Post.where("user_id = #{self.id}").order(created_at: :desc)
+      Post.timeline_only(self)
     end
   end
 

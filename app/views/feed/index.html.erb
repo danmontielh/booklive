@@ -10,20 +10,24 @@
                     <img src="<%=(url_for(feed.photo))%>" class="img-responsive" >
                <% end %>
                <hr>
-               <% if feed.likes.count > 0 %>
+
+               <div class="likes-<%= feed.id %>">
+                     <% if feed.like?(current_user) %>
                     <p style="color: green">
                          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">
-                              Already like
+                              Already like | <%= feed.total_likes %>
                          </span>
                     </p>
                <% else %>
-                    <%= form_with(model: @like, url: likes_path, local: true ) do |f| %>
-                         <%= f.hidden_field :post_id, value: feed.id %>
+                    <%= form_with(model: @like, url: likes_path(like:  {post_id: feed.id } ), remote: true ) do |f| %>
                          <%= button_tag(type: "submit", class: "btn btn-primary") do %>
                               <span><i class="glyphicon glyphicon-thumbs-up"></i> Like</span>
                          <% end %>
                     <% end %>
                <% end %>
+               </div>
+
+              
                
                <h5>Comments</h5>
                <% feed.comments.each do |comment| %>
