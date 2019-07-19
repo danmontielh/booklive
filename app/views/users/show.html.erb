@@ -9,7 +9,8 @@
                <div class="media-body">
                     <h4 class="media-heading"><%= @user.email %></h4>
                     <span class="add-<%= @user.id %>">
-                         <% if current_user.friendship?(@user) %>
+                         <% if @user != current_user %>
+                              <% if current_user.friendship?(@user) %>
                          <%= link_to "Cancel Friendship", friendship_path(current_user.get_friendship_id(@user)), remote: true, method: :delete, class: "btn btn-danger" %>
                          <% elsif current_user.invitation?(@user) %>
                          <% if current_user.has_invited?(@user) %>
@@ -19,6 +20,7 @@
                          <% end %>
                          <% else %>
                          <%= link_to "Request Friendship", friendships_path(friendship:  {invited_friend_id: @user.id } ), remote: true, method: :post, class: "btn btn-primary" %>
+                         <% end %> 
                          <% end %>
                     </span>
                     <p></p>

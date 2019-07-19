@@ -2,24 +2,24 @@
 <div class="row">
      <div class="col-sm-3"></div> 
      <div class="col-sm-6">
-          <% @feed.each do |feed| %>
-               <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.email %></h4>
-               <h5 class="title"><%= feed.title %></h5>
-               <p class="feed_content"><%= feed.content %></p>
-               <% if feed.photo.attached? %>
-                    <img src="<%=(url_for(feed.photo))%>" class="img-responsive" >
+          <% @feed_posts.each do |post| %>
+               <h4><%= user_gravatar(post.user, 45) %> <%= post.user.email %></h4>
+               <h5 class="title"><%= post.title %></h5>
+               <p class="feed_content"><%= post.content %></p>
+               <% if post.photo.attached? %>
+                    <img src="<%=(url_for(post.photo))%>" class="img-responsive" >
                <% end %>
                <hr>
 
-               <div class="likes-<%= feed.id %>">
-                     <% if feed.like?(current_user) %>
+               <div class="likes-<%= post.id %>">
+                     <% if post.like?(current_user) %>
                     <p style="color: green">
                          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">
-                              Already like | <%= feed.total_likes %>
+                              Already like | <%= post.total_likes %>
                          </span>
                     </p>
                <% else %>
-                    <%= form_with(model: @like, url: likes_path(like:  {post_id: feed.id } ), remote: true ) do |f| %>
+                    <%= form_with(model: @like, url: likes_path(like:  {post_id: post.id } ), remote: true ) do |f| %>
                          <%= button_tag(type: "submit", class: "btn btn-primary") do %>
                               <span><i class="glyphicon glyphicon-thumbs-up"></i> Like</span>
                          <% end %>
@@ -30,7 +30,7 @@
               
                
                <h5>Comments</h5>
-               <% feed.comments.each do |comment| %>
+               <% post.comments.each do |comment| %>
                <div class="comments-<%= comment.post_id %>">
                     <div class="media">
                          <div class="media-left media-middle">
@@ -45,8 +45,8 @@
                <% end %>
                </div>
                <%= form_with(model: @comment, url: comments_path, remote: true ) do |f| %>
-                    <%= f.hidden_field :post_id, value: feed.id %>
-                    <%= f.text_area :body, class: "form-group col-sm-12 btn-comment form-#{feed.id}", rows: "1" %><br>
+                    <%= f.hidden_field :post_id, value: post.id %>
+                    <%= f.text_area :body, class: "form-group col-sm-12 btn-comment form-#{post.id}", rows: "1" %><br>
                     <%= f.submit "Comment", :onclick => "", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
                <% end %>
                
