@@ -3,7 +3,7 @@
      <div class="col-sm-3"></div> 
      <div class="col-sm-6">
           <% @feed_posts.each do |post| %>
-               <h4><%= user_gravatar(post.user, 45) %> <%= post.user.email %></h4>
+               <h4><%= user_gravatar(post.user, 45) %> <%= post.user.name %></h4>
                <h5 class="title"><%= post.title %></h5>
                <p class="feed_content"><%= post.content %></p>
                <% if post.photo.attached? %>
@@ -30,20 +30,21 @@
               
                
                <h5>Comments</h5>
-               <% post.comments.each do |comment| %>
-               <div class="comments-<%= comment.post_id %>">
-                    <div class="media">
-                         <div class="media-left media-middle">
-                              <a href="#">
-                                   <%= user_gravatar(comment.user, 35) %>
-                              </a>
-                         </div>
-                         <div class="media-body">
-                              <p class="feed_comment"><span class="comment_name"><%= comment.user.email %></span> <%= comment.body %></p>
+               <% feed_posts.comments.each do |comment| %>
+                    <div class="comments-<%= comment.post_id %>">
+                         <div class="media">
+                              <div class="media-left media-middle">
+                                   <a href="#">
+                                        <%= user_gravatar(comment.user, 35) %>
+                                   </a>
+                              </div>
+                              <div class="media-body">
+                                   <p class="feed_comment"><span class="comment_name"><%= comment.user.name %></span> <%= comment.body %></p>
+                              </div>
                          </div>
                     </div>
                <% end %>
-               </div>
+               
                <%= form_with(model: @comment, url: comments_path, remote: true ) do |f| %>
                     <%= f.hidden_field :post_id, value: post.id %>
                     <%= f.text_area :body, class: "form-group col-sm-12 btn-comment form-#{post.id}", rows: "1" %><br>

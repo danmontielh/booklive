@@ -7,7 +7,7 @@
                </a>
                </div>
                <div class="media-body">
-                    <h4 class="media-heading"><%= @user.email %></h4>
+                    <h4 class="media-heading"><%= @user.name %></h4>
                     <span class="add-<%= @user.id %>">
                          <% if @user != current_user %>
                               <% if current_user.friendship?(@user) %>
@@ -34,7 +34,7 @@
      </div>
      <div class="col-sm-6">
           <% @feed.each do |feed| %>
-               <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.email %></h4>
+               <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.name %></h4>
                <h5 class="title"><%= feed.title %></h5>
                <p class="feed_content"><%= feed.content %></p>
                <% if feed.photo.attached? %>
