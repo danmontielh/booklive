@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :users
   resources :feed
   resources :friendships
+  delete 'destroy_friendship/:id', to: 'friendships#destroy_friendship', as: 'destroy_friendship'
   resources :comments
   resources :likes
   root 'home#index'

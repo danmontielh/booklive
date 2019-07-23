@@ -22,6 +22,23 @@ class FriendshipsController < ApplicationController
     end
     end
 
+    def destroy_friendship
+        @user = nil
+        if current_user.id == @friendship.friend_invite_id
+            @user = User.find(@friendship.invited_friend_id)
+        else
+            @user = User.find(@friendship.friend_invite_id)
+        end
+
+        if @friendship.destroy
+            respond_to do |format|
+                format.js 
+            end
+        end
+
+    end
+
+
     def destroy
         @user = User.find(@friendship.invited_friend_id)
         if @friendship.destroy
@@ -32,10 +49,6 @@ class FriendshipsController < ApplicationController
         else
 
         end
-    end
-
-    def destroy_friendship 
-    
     end
 
 
