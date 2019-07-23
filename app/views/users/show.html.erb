@@ -19,6 +19,7 @@
           </div>
      </div>
      <div class="col-sm-6">
+     <% if current_user.friendship?(@user) || current_user == @user %>
           <% @feed.each do |feed| %>
                <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.name %></h4>
                <h5 class="title"><%= feed.title %></h5>
@@ -56,6 +57,9 @@
                
                <hr>
           <% end %>
+     <% else %>
+     <h4 class="text-center"> <b><%= @user.name %></b> is not your friend <span class="glyphicon glyphicon-ban-circle red-color" aria-hidden="true"></span> </h4>
+     <% end %>
      </div>
      <div class="col-sm-3"></div>
 </div>
