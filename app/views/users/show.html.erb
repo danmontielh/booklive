@@ -1,65 +1,57 @@
 <div class="row">
-     <div class="col-sm-3">
+  <div class="col-sm-3">
+    <div class="media">
+      <div class="media-left media-middle">
+        <a href="users/<%= @user.id %>">
+          <%= user_gravatar(@user, 105) %>
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading"><%= @user.name %></h4>
+        <%= render "shared/friend_control", user: @user %>
+        <p></p>
+        <span style="margin-top:5px">
+          <a href="#" class="btn btn-success">
+            Friends <span class="badge"><%= @num_friends %></span>
+          </a>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <% if current_user.friendship?(@user) || current_user == @user %>
+      <% @feed.each do |feed| %>
+        <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.name %></h4>
+        <h5 class="title"><%= feed.title %></h5>
+        <p class="feed_content"><%= feed.content %></p>
+        <% if feed.photo.attached? %>
+          <img src="<%= url_for(feed.photo) %>"  class="img-responsive">
+        <% end %>
+        <%= render "shared/likes", post: feed %>
+        <hr>
+        <h5>Comments</h5>
+        <% feed.comments.each do |comment| %>
           <div class="media">
-               <div class="media-left media-middle">
-               <a href="users/<%= @user.id %>">
-                    <%= user_gravatar(@user, 105) %>
-               </a>
-               </div>
-               <div class="media-body">
-                    <h4 class="media-heading"><%= @user.name %></h4>
-                    <%= render "shared/friend_control", user: @user %>
-                    <p></p>
-                    <span style="margin-top:5px">
-                         <a href="#" class="btn btn-success">
-                              Friends <span class="badge"><%= @num_friends %></span>
-                         </a>
-                    </span>
-               </div>
+            <div class="media-left media-middle">
+              <a href="#">
+                <%= user_gravatar(comment.user, 35) %>
+              </a>
+            </div>
+            <div class="media-body">
+              <p class="feed_comment"><span class="comment_name"><%= comment.user.email %></span> <%= comment.body %></p>
+            </div>
           </div>
-     </div>
-     <div class="col-sm-6">
-     <% if current_user.friendship?(@user) || current_user == @user %>
-          <% @feed.each do |feed| %>
-               <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.name %></h4>
-               <h5 class="title"><%= feed.title %></h5>
-               <p class="feed_content"><%= feed.content %></p>
-               <% if feed.photo.attached? %>
-                    <img src="<%= url_for(feed.photo) %>"  class="img-responsive">
-               <% end %>
-               <% if feed.likes.count > 0 %>
-                    <p style="color: green">Already like</p>
-               <% else %>
-                    <%= form_with(model: @like, url: likes_path, local: true ) do |f| %>
-                         <%= f.hidden_field :post_id, value: feed.id %>
-                         <%= f.submit "Like", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
-                    <% end %>
-               <% end %>
-               <hr>
-               <h5>Comments</h5>
-               <% feed.comments.each do |comment| %>
-                    <div class="media">
-                         <div class="media-left media-middle">
-                              <a href="#">
-                                   <%= user_gravatar(comment.user, 35) %>
-                              </a>
-                         </div>
-                         <div class="media-body">
-                              <p class="feed_comment"><span class="comment_name"><%= comment.user.email %></span> <%= comment.body %></p>
-                         </div>
-                    </div>
-               <% end %>
-               <%= form_with(model: @comment, url: comments_path, local: true ) do |f| %>
-                    <%= f.hidden_field :post_id, value: feed.id %>
-                    <%= f.text_area :body, class: "form-group col-sm-12", rows: "1" %><br>
-                    <%= f.submit "Comment", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
-               <% end %>
-               
-               <hr>
-          <% end %>
-     <% else %>
-     <h4 class="text-center"> <b><%= @user.name %></b> is not your friend <span class="glyphicon glyphicon-ban-circle red-color" aria-hidden="true"></span> </h4>
-     <% end %>
-     </div>
-     <div class="col-sm-3"></div>
+        <% end %>
+        <%= form_with(model: @comment, url: comments_path, local: true ) do |f| %>
+          <%= f.hidden_field :post_id, value: feed.id %>
+          <%= f.text_area :body, class: "form-group col-sm-12", rows: "1" %><br>
+          <%= f.submit "Comment", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
+        <% end %>
+        <hr>
+      <% end %>
+    <% else %>
+      <h4 class="text-center"> <b><%= @user.name %></b> is not your friend <span class="glyphicon glyphicon-ban-circle red-color" aria-hidden="true"></span> </h4>
+    <% end %>
+  </div>
+  <div class="col-sm-3"></div>
 </div>
