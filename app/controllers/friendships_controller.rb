@@ -1,6 +1,6 @@
 class FriendshipsController < ApplicationController
 
-    before_action :set_friendship, only: [:show, :update, :destroy]
+    before_action :set_friendship, only: [:show, :update, :destroy, :destroy_friendship]
 
 
     def create
@@ -33,8 +33,14 @@ class FriendshipsController < ApplicationController
 
         end
     end
+
+    def destroy_friendship 
     
-    
+    end
+
+
+
+
     private
 
     def set_friendship
