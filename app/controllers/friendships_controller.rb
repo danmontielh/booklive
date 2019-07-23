@@ -15,27 +15,21 @@ class FriendshipsController < ApplicationController
     end
 
     def update
-    @friendship.update_attributes(accepted:true)
-    @user = User.find(@friendship.friend_invite_id)
-    respond_to do |format|
-        format.js 
-    end
+        @friendship.update_attributes(accepted:true)
+        @user = User.find(@friendship.friend_invite_id)
+        respond_to do |format|
+            format.js 
+        end
     end
 
     def destroy_friendship
         @user = nil
-        if current_user.id == @friendship.friend_invite_id
-            @user = User.find(@friendship.invited_friend_id)
-        else
-            @user = User.find(@friendship.friend_invite_id)
-        end
-
+        current_user.id == @friendship.friend_invite_id ? ( @user = User.find(@friendship.invited_friend_id) ) : ( @user = User.find(@friendship.friend_invite_id) )
         if @friendship.destroy
             respond_to do |format|
                 format.js 
             end
         end
-
     end
 
 
