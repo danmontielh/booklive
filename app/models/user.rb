@@ -17,7 +17,7 @@ class User < ApplicationRecord
 
 
   def invitations?
-    invites_friend.not_accepted
+    invites_friend.not_accepted.count > 0
   end
   
   
