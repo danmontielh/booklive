@@ -31,7 +31,8 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)
 
       if @post.save
-         redirect_to feed_posts_path, notice: 'Post was successfully created.' 
+        flash[:success] = "Post was successfully created."
+         redirect_to feed_posts_path
       else
         render :new 
       end

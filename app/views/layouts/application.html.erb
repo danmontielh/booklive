@@ -38,6 +38,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span><i class='glyphicon glyphicon-user'></i></span> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="/users/<%= current_user.id %>">Profile</a></li>
+                  <li><%= link_to "Settings", edit_user_registration_path %></li>
                   <li role="separator" class="divider"></li>
                   <li><%= link_to raw("<span><i class='glyphicon glyphicon-off'></i> Sign out</span>"), destroy_user_session_path, :method => :delete%></li>
                 </ul>
@@ -73,9 +74,10 @@
       </div>
     </nav>
     <div class="container">
-      <div style="margin-top:50px"> 
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
+      <div style="margin-top:90px"> 
+        <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
       </div>
       <% if user_signed_in? == false %>
         <div class="pull-right">
