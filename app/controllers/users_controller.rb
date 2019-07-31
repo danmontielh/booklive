@@ -15,4 +15,15 @@ class UsersController < ApplicationController
         @comment = Comment.new
         @like = Like.new
     end
+
+    def update_avatar
+        @user = User.find(params[:id])
+        @user.avatar.attach(params[:user][:avatar])
+        if @user.avatar.attached?
+            redirect_to root_path
+        else
+            redirect_to @user
+        end
+    end
+    
 end

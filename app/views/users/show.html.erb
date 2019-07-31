@@ -3,7 +3,11 @@
     <div class="media">
       <div class="media-left media-middle">
         <a href="users/<%= @user.id %>">
-          <%= user_gravatar(@user, 105) %>
+          <% if @user.avatar.attached? %>
+            <%= image_tag(@user.avatar, size: 105) %>
+          <% else %>
+            <%= user_gravatar(@user, 105) %>
+          <% end %>
         </a>
       </div>
       <div class="media-body">
@@ -17,6 +21,9 @@
         </span>
       </div>
     </div>
+    <% if current_user == @user %>
+     <%= render 'change_avatar' %>
+   <% end %>
   </div>
   <div class="col-sm-6">
     <% if current_user.friendship?(@user) || current_user == @user %>

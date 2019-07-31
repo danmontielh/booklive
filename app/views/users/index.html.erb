@@ -4,7 +4,11 @@
     <div class="media col-md-4">
       <div class="media-left media-middle">
         <a href="users/<%= user.id %>">
-          <%= user_gravatar(user, 75) %>
+          <% if user.avatar.attached? %>
+            <%= image_tag(user.avatar, size: 75) %>
+          <% else %>
+            <%= user_gravatar(user, 75) %>
+          <% end %>
         </a>
       </div>
       <div class="media-body">

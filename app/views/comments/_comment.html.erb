@@ -1,6 +1,6 @@
 <div class="media">
     <div class="media-left media-middle">
-        <a href="#"><%= user_gravatar(@comment.user, 35) %></a>
+        <a href="#"><%= image_tag(@user.avatar, size: 35) %></a>
     </div>
     <div class="media-body">
         <p class="feed_comment"><span class="comment_name"><%= @comment.user.email %></span> <%= @comment.body %></p>
