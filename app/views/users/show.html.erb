@@ -22,13 +22,17 @@
       </div>
     </div>
     <% if current_user == @user %>
-     <%= render 'change_avatar' %>
-   <% end %>
+      <%= render 'change_avatar' %>
+    <% end %>
   </div>
   <div class="col-sm-6">
     <% if current_user.friendship?(@user) || current_user == @user %>
       <% @feed.each do |feed| %>
-        <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.name %></h4>
+        <% if feed.user.avatar.attached? %>
+          <h4><%= image_tag(feed.user.avatar, size: 45) %> <%= feed.user.name %></h4>
+        <% else %>
+          <h4><%= user_gravatar(feed.user, 45) %> <%= feed.user.name %></h4>
+        <% end %>
         <h5 class="title"><%= feed.title %></h5>
         <p class="feed_content"><%= feed.content %></p>
         <% if feed.photo.attached? %>
@@ -41,7 +45,11 @@
           <div class="media">
             <div class="media-left media-middle">
               <a href="#">
-                <%= user_gravatar(comment.user, 35) %>
+                <% if comment.user.avatar.attached? %>
+                  <%= image_tag(comment.user.avatar, size: 45) %>
+                <% else %>
+                  <%= user_gravatar(comment.user, 35) %>
+                <% end %>
               </a>
             </div>
             <div class="media-body">
