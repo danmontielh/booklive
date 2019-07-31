@@ -6,7 +6,6 @@ class FriendshipsController < ApplicationController
     def create
         @friendship = current_user.friendships.build(friendship_params)
         if @friendship.save
-            flash[:success] = "Invitation has sending !"
             @user = User.find(@friendship.invited_friend_id)
             respond_to do |format|
                 format.js 
@@ -36,7 +35,6 @@ class FriendshipsController < ApplicationController
     def destroy
         @user = User.find(@friendship.invited_friend_id)
         if @friendship.destroy
-            flash[:success] = "Invitation has sending !"
             respond_to do |format|
                 format.js 
             end
