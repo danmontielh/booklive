@@ -9,6 +9,12 @@ RSpec.describe User do
   let(:friendship_1) { FactoryBot.create(:friendship, friend_invite_id: dan.id, invited_friend_id: mark.id )  }
   let(:friendship_2) { FactoryBot.create(:friendship, friend_invite_id: dan.id, invited_friend_id: pablo.id, accepted: true) } 
   
+  describe "associations" do
+    it { should have_many(:posts) }
+    it { should have_many(:comments) }  
+    it { should have_many(:likes) } 
+  end
+  
   
   describe "validation" do
       it "email and passwotd don't be blank" do
