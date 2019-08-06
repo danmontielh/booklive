@@ -48,12 +48,12 @@
               <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {class: "form-inline"} ) do |f| %>
     
                   <%= f.label :email %>
-                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "login_email" %>
                 
 
                 
                   <%= f.label :password %>
-                  <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+                  <%= f.password_field :password, autocomplete: "current-password", class: "form-control", id: "login_password" %>
                 
 
                 <% if devise_mapping.rememberable? %>
