@@ -1,8 +1,15 @@
-<div class="media">
+
+ <div class="media">
     <div class="media-left media-middle">
-        <a href="#"><%= image_tag(@user.avatar, size: 35) %></a>
-    </div>
+        <a href="#">
+            <% if @comment.user.avatar.attached? %>
+                <%= image_tag(@comment.user.avatar, size: 45) %> 
+            <% else %>
+                <%= user_gravatar(@comment.user, 35) %> 
+            <% end %>
+        </a>
+</div>
     <div class="media-body">
-        <p class="feed_comment"><span class="comment_name"><%= @comment.user.email %></span> <%= @comment.body %></p>
+        <p class="feed_comment"><span class="comment_name"><%= @comment.user.name %></span> <%= @comment.body %></p>
     </div>
 </div>
