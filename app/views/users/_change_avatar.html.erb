@@ -15,14 +15,13 @@
           <div class="modal-body">
             <%= form_for(@user, url: update_avatar_path(@user.id)) do |form| %>
               <%= form.file_field :avatar %>
+              <%= form.submit "Update Avatar", class: 'btn btn-primary space'%>
+            <% end %>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <%= form.submit "Update Avatar", class: 'btn btn-primary'  %>
-            <% end %>
           </div>
         </div>
       </div>
     </div>
-
 </div>
