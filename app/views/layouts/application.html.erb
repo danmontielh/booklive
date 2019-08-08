@@ -28,7 +28,7 @@
             <% if user_signed_in? %>
               <li><%= link_to raw("<span><i class='glyphicon glyphicon-edit'></i> New Post</span>"), new_post_path %></li>
               <% if current_user.invitations? %>
-              <li><%= link_to raw("<span>Friends <i class='glyphicon glyphicon-plus-sign red-color'></i></span>"), users_path %></li>
+              <li><%= link_to raw("<span>Friends <i class='glyphicon glyphicon-plus-sign red-color'>#{current_user.number_invitations}</i></span>"), users_path %></li>
               <% else %>
               <li><%= link_to "Friends", users_path %></li>
               <% end %>

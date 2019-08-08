@@ -20,8 +20,11 @@ class User < ApplicationRecord
   def invitations?
     invites_friend.not_accepted.count > 0
   end
-  
-  
+
+  def number_invitations
+    invites_friend.not_accepted.count
+  end
+
   def get_friendship_id(user)
     if self.friendships.has_invited(user).count == 1
       friendships.has_invited(user).ids
