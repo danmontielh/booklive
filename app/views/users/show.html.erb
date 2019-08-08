@@ -2,7 +2,7 @@
   <div class="col-sm-3">
     <div class="media">
       <div class="media-left media-middle">
-        <a href="users/<%= @user.id %>">
+        <a href="<%= user_path(@user.id) %>">
           <% if @user.avatar.attached? %>
             <%= image_tag(@user.avatar, size: 105) %>
           <% else %>
@@ -41,27 +41,29 @@
         <%= render "shared/likes", post: feed %>
         <hr>
         <h5>Comments</h5>
+      <div class="comments-<%= feed.id %>">
         <% feed.comments.each do |comment| %>
           <div class="media">
             <div class="media-left media-middle">
               <a href="#">
                 <% if comment.user.avatar.attached? %>
-                  <%= image_tag(comment.user.avatar, size: 45) %>
+                  <%= image_tag(comment.user.avatar, size: 45) %> 
                 <% else %>
-                  <%= user_gravatar(comment.user, 35) %>
+                  <%= user_gravatar(comment.user, 35) %> 
                 <% end %>
               </a>
             </div>
             <div class="media-body">
-              <p class="feed_comment"><span class="comment_name"><%= comment.user.email %></span> <%= comment.body %></p>
+              <p class="feed_comment"><span class="comment_name"><%= comment.user.name %></span> <%= comment.body %></p>
             </div>
           </div>
         <% end %>
-        <%= form_with(model: @comment, url: comments_path, local: true ) do |f| %>
-          <%= f.hidden_field :post_id, value: feed.id %>
-          <%= f.text_area :body, class: "form-group col-sm-12", rows: "1" %><br>
-          <%= f.submit "Comment", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
-        <% end %>
+      </div>
+      <%= form_with(model: @comment, url: comments_path, remote: true ) do |f| %>
+        <%= f.hidden_field :post_id, value: feed.id %>
+        <%= f.text_area :body, class: "form-group col-sm-12 btn-comment form-#{feed.id}", rows: "1" %><br>
+        <%= f.submit "Comment", :onclick => "", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
+      <% end %>
         <hr>
       <% end %>
     <% else %>
