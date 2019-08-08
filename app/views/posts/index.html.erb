@@ -3,7 +3,7 @@
   <div class="col-sm-6">
     <% @feed_posts.each do |post| %>
       <% if post.user.avatar.attached? %>
-         <h4><%= image_tag(@user.avatar, size: 45) %> <%= link_to post.user.name, user_path(post.user.id) %></h4>
+         <h4><%= image_tag(post.user.avatar, size: 45) %> <%= link_to post.user.name, user_path(post.user.id) %></h4>
       <% else %>
         <h4><%= user_gravatar(post.user, 45) %> <%= link_to post.user.name, user_path(post.user.id) %></h4>
       <% end %>
