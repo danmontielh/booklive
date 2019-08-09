@@ -14,6 +14,7 @@ class UsersController < ApplicationController
         @feed = Post.order(created_at: :desc).where(user_id: params[:id])
         @comment = Comment.new
         @like = Like.new
+        @letter = Letter.new
     end
 
     def update_avatar

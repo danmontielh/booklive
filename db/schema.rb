@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_10_054044) do
+ActiveRecord::Schema.define(version: 2019_08_08_224239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 2019_07_10_054044) do
     t.datetime "updated_at", null: false
     t.index ["friend_invite_id"], name: "index_friendships_on_friend_invite_id"
     t.index ["invited_friend_id"], name: "index_friendships_on_invited_friend_id"
+  end
+
+  create_table "letters", force: :cascade do |t|
+    t.bigint "sender_id"
+    t.bigint "receiver_id"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["receiver_id"], name: "index_letters_on_receiver_id"
+    t.index ["sender_id"], name: "index_letters_on_sender_id"
   end
 
   create_table "likes", force: :cascade do |t|

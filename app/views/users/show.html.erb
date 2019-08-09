@@ -24,6 +24,12 @@
     <% if current_user == @user %>
       <%= render 'change_avatar' %>
     <% end %>
+
+    
+    <% if current_user.friendship?(@user) %>
+      <%= render 'send_message' %>
+    <% end %>
+    
   </div>
   <div class="col-sm-6">
     <% if current_user.friendship?(@user) || current_user == @user %>

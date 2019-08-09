@@ -1,0 +1,12 @@
+<h1>Letters Send</h1>
+
+<% @letter_user_send.each do |letter| %>
+<p><%= letter.message %></p>
+<% end %>
+
+
+<h1>Letters Receive</h1>
+<% @letter_user_receive.each do |letter| %>
+<p>Sender: <%= letter.sender.name %> </p>
+<p><%= letter.message %></p>
+<% end %>

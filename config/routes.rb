@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :letters
+  get 'user/show_letters', to: 'letters#index', as: 'show_letters'
   resources :posts
   get 'feed_posts', to: 'posts#index', as: 'feed_posts'
   devise_for :users, :path => 'accounts', controllers: { registrations: "registrations", :omniauth_callbacks => "callbacks" }

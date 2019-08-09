@@ -12,6 +12,9 @@ class User < ApplicationRecord
   has_many :comments
   has_many :likes
   has_one_attached :avatar
+  has_many :letters_send, foreign_key: "sender_id", class_name: "Letter"
+  has_many :letters_receiver, foreign_key: "receiver_id", class_name: "Letter"
+
 
   after_create :welcome_mail
   
