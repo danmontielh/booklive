@@ -70,9 +70,9 @@ class User < ApplicationRecord
   def get_posts
     friends = self.friends.join(", ")
     if self.friends.count > 0
-      Post.timeline_friends(friends, self)
+      Post.timeline_friends(friends, self.id)
     else
-      Post.timeline_only(self)
+      Post.timeline_only(self.id)
     end
   end
 

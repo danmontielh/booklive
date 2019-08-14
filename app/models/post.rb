@@ -17,12 +17,12 @@ class Post < ApplicationRecord
   end
 
 
-  def self.timeline_friends(list_friends, user)
-    where("user_id IN (#{list_friends}) OR user_id = #{user.id}").order(created_at: :desc)
+  def self.timeline_friends(list_friends, id)
+    where("user_id IN (#{list_friends}) OR user_id = #{id}").order(created_at: :desc)
   end
 
-  def self.timeline_only(user)
-    where("user_id = #{user.id}").order(created_at: :desc)
+  def self.timeline_only(id)
+    where("user_id = #{id}").order(created_at: :desc)
   end
 
 end

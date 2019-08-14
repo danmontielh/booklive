@@ -1,0 +1,5 @@
+<%= form_with(model: @comment, url: comments_path, remote: true ) do |f| %>
+  <%= f.hidden_field :post_id, value: id %>
+  <%= f.text_area :body, class: "form-group col-sm-12 btn-comment form-#{id}", rows: "1" %><br>
+  <%= f.submit "Comment", :onclick => "", data: { "disable-with": "Saving..." }, class: "btn btn-primary" %>
+<% end %>
