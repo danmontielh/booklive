@@ -66,6 +66,15 @@ RSpec.describe User do
       friendship_2
       expect(dan.number_friends).to eql(1)  
     end   
+
+    it "don't accept inverse invitation" do
+      friendship_1
+      @friendship_3 = FactoryBot.build(:friendship, friend_invite_id: mark.id, invited_friend_id: dan.id )
+      @friendship_3.valid?
+      expect(@friendship_3.errors[:error1]).to eql(["Invitation already exists"])  
+    end
+    
+
   end
 
   

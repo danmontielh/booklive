@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2019_08_08_224239) do
     t.boolean "accepted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["friend_invite_id", "invited_friend_id"], name: "index_friendships_on_friend_invite_id_and_invited_friend_id", unique: true
     t.index ["friend_invite_id"], name: "index_friendships_on_friend_invite_id"
     t.index ["invited_friend_id"], name: "index_friendships_on_invited_friend_id"
   end
