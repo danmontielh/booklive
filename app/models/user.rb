@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :likes
   has_one_attached :avatar
 
-  after_create :welcome_mail
+  # after_create :welcome_mail
   
 
 
