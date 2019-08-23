@@ -28,6 +28,6 @@ This is our own social network attempt. This is the project final for Rails in M
 
 Author: <a href="https://github.com/danmontielh">Daniel Montiel</a> / <a href="https://github.com/TheBigSteph">Stephane Nzali</a>
 
-Preview: Very Soon
+Preview: https://enigmatic-cliffs-99316.herokuapp.com/
 
 
