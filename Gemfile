@@ -21,7 +21,7 @@ gem 'devise'
 #Bootstrap-sass
 gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 gem 'sassc-rails', '>= 2.1.0'
-gem 'omniauth', '~> 1.6', '>= 1.6.1'
+gem 'omniauth', '~> 1.9'
 gem 'omniauth-facebook'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
